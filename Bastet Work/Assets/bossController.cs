@@ -8,9 +8,6 @@ public class bossController : MonoBehaviour {
 	Animator anim;
 	GameObject laserEye;
 	Vector3 firingVector;
-
-	public GameObject player;
-
 	bool drawLaser = false;
 
 	// Use this for initialization
@@ -22,9 +19,12 @@ public class bossController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (UnityEngine.Input.GetKeyDown(KeyCode.Space)) {
+		if (UnityEngine.Input.GetKeyDown(KeyCode.G)) {
 			beamAttack ();
 			drawLaser = true;
+		}
+		if (UnityEngine.Input.GetKeyDown(KeyCode.F)) {
+			longSwipeAttack ();
 		} 
 	}
 
@@ -36,8 +36,8 @@ public class bossController : MonoBehaviour {
 	}
 
 	void beamAttack (){
-		firingVector = player.transform.position;
-		anim.SetTrigger("StartAttack");
+		firingVector = new Vector3(-10, laserEye.transform.position.y, laserEye.transform.position.z);
+		anim.SetTrigger("ChargeAttack");
 		Invoke("stopFiring", 3);
 	}
 
@@ -45,5 +45,9 @@ public class bossController : MonoBehaviour {
 		anim.SetTrigger ("DoneFiring");
 		drawLaser = false;
 		firingVector = new Vector3 (0, 0, 0);
+	}
+
+	void longSwipeAttack() {
+		anim.SetTrigger("LongSwipeAttack");
 	}
 }
